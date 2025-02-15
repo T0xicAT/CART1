@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Fetch products from backend
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:8082/api/products'); // Update the URL to match your backend server
+        const response = await fetch('http://localhost:8082/api/products');
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -17,17 +17,44 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+  const handleAddToCart = async (productId) => {
+    try {
+      const response = await fetch('http://localhost:8082/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({ productId, quantity: 1 }),
+      });
+      const data = await response.json();
+      console.log('Product added to cart:', data);
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+    }
+  };
+
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Products</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="p-8 bg-gradient-to-r from-blue-500 to-indigo-600 min-h-screen">
+      <h1 className="text-4xl font-bold mb-10 text-center text-white shadow-md">Our Premium Products</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {products.map((product) => (
-          <div key={product._id} className="bg-white p-4 rounded shadow-md">
-            <img src={product.image} alt={product.name} className="w-full h-48 object-cover mb-4" />
-            <h2 className="text-xl font-semibold">{product.name}</h2>
-            <p className="text-gray-600">${product.price}</p>
-            <button className="mt-4 w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
-              Add to Cart
+          <div
+            key={product._id}
+            className="bg-white p-6 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl"
+          >
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-48 object-cover mb-4 rounded-t-lg hover:opacity-90 transition duration-300"
+            />
+            <h2 className="text-2xl font-semibold text-gray-800">{product.name}</h2>
+            <p className="text-gray-600 mt-2 font-medium">${product.price}</p>
+            <button
+              onClick={() => handleAddToCart(product._id)}
+              className="mt-4 w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+            >
+              <FaShoppingCart /> Add to Cart
             </button>
           </div>
         ))}
