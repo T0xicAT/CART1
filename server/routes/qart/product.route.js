@@ -1,10 +1,16 @@
-const express = require("express")
-const { productController } = require("../../controllers")
-const auth = require("../../middlewares/auth")
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const Product = require('../../models/product.model'); // Ensure you have a Product model
 
-router.get("/",productController.getProducts)
+// Get all products
+router.get('/products', async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
-router.get("/:productId",productController.getProductById)
-
-module.exports = router
+module.exports = router;
