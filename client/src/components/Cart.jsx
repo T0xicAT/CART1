@@ -1,64 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cart, setCart] = useState(null);
 
-  const addToCart = (product) => {
-    setCartItems([...cartItems, { ...product, quantity: 1 }]);
-  };
-
-  const removeFromCart = (id) => {
-    setCartItems(cartItems.filter((item) => item._id !== id));
-  };
-
-  const updateQuantity = (id, quantity) => {
-    setCartItems(
-      cartItems.map((item) =>
-        item._id === id ? { ...item, quantity: Math.max(1, quantity) } : item
-      )
-    );
-  };
-
-  const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
-  };
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const response = await fetch('http://localhost:8082/api/cart', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        const data = await response.json();
+        setCart(data);
+      } catch (error) {
+        console.error('Error fetching cart:', error);
+      }
+    };
+    fetchCart();
+  }, []);
 
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-6">Cart</h1>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
+      {cart ? (
         <div>
-          {cartItems.map((item) => (
-            <div key={item._id} className="flex items-center justify-between bg-white p-4 rounded shadow-md mb-4">
-              <div>
-                <h2 className="text-xl font-semibold">{item.name}</h2>
-                <p className="text-gray-600">${item.price}</p>
-              </div>
-              <div className="flex items-center">
-                <input
-                  type="number"
-                  value={item.quantity}
-                  onChange={(e) => updateQuantity(item._id, parseInt(e.target.value))}
-                  className="w-16 p-2 border rounded"
-                />
-                <button
-                  onClick={() => removeFromCart(item._id)}
-                  className="ml-4 bg-red-500 text-white p-2 rounded hover:bg-red-600"
-                >
-                  Remove
-                </button>
-              </div>
+          {cart.items.map((item) => (
+            <div key={item.product._id} className="bg-white p-4 rounded shadow-md">
+              <img src={item.product.image} alt={item.product.name} className="w-full h-48 object-cover mb-4" />
+              <h2 className="text-xl font-semibold">{item.product.name}</h2>
+              <p className="text-gray-600">${item.product.price}</p>
+              <p className="text-gray-600">Quantity: {item.quantity}</p>
             </div>
           ))}
-          <div className="mt-6">
-            <p className="text-xl font-semibold">Total: ${calculateTotal()}</p>
-            <button className="mt-4 w-full bg-green-500 text-white p-2 rounded hover:bg-green-600">
-              Checkout
-            </button>
-          </div>
         </div>
+      ) : (
+        <p>Loading cart...</p>
       )}
     </div>
   );

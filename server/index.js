@@ -6,7 +6,8 @@ const config = require("./config/config");
 const passport = require("passport");
 const { jwtStrategy } = require("./config/passport");
 const authRoutes = require("./routes/qart/auth.route");
-const productsRoutes = require("./routes/qart/product.route"); // Add products route
+const productsRoutes = require("./routes/qart/product.route");
+const cartRoutes = require("./routes/qart/cart.route"); // Add cart route
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 passport.use("jwt", jwtStrategy);
 
-mongoose.connect(config.mongoose.url, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(config.mongoose.url)
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -31,7 +32,8 @@ mongoose.connect(config.mongoose.url, { useNewUrlParser: true, useUnifiedTopolog
   });
 
 app.use("/api/auth", authRoutes);
-app.use("/api", productsRoutes); // Use products route
+app.use("/api/products", productsRoutes);
+app.use("/api/cart", cartRoutes); // Use cart route
 
 app.get("/", (req, res) => {
   res.send("Hello welcome to Cart Project");
