@@ -6,7 +6,7 @@
 //   useEffect(() => {
 //     const fetchCart = async () => {
 //       try {
-//         const response = await fetch('https://lpu-cart-mern.vercel.app/api/cart', {
+//         const response = await fetch('https://cart-1-xi.vercel.app/api/cart', {
 //           headers: {
 //             Authorization: `Bearer ${localStorage.getItem('token')}`,
 //           },
@@ -27,7 +27,7 @@
 
 //   const handleUpdateQuantity = async (productId, quantity) => {
 //     try {
-//       const response = await fetch('https://lpu-cart-mern.vercel.app/api/cart/update', {
+//       const response = await fetch('https://cart-1-xi.vercel.app/api/cart/update', {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -44,7 +44,7 @@
 
 //   const handleRemoveProduct = async (productId) => {
 //     try {
-//       const response = await fetch('https://lpu-cart-mern.vercel.app/api/cart/remove', {
+//       const response = await fetch('https://cart-1-xi.vercel.app/api/cart/remove', {
 //         method: 'DELETE',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -61,7 +61,7 @@
 
 //   const handleCheckout = async () => {
 //     try {
-//       const response = await fetch('https://lpu-cart-mern.vercel.app/api/cart/checkout', {
+//       const response = await fetch('https://cart-1-xi.vercel.app/api/cart/checkout', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ const Cart = () => {
 
   const fetchCart = async () => {
     try {
-      const response = await fetch("https://lpu-cart-mern.vercel.app/api/cart", {
+      const response = await fetch("https://cart-1-xi.vercel.app/api/cart", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -143,7 +143,7 @@ const Cart = () => {
 
   const handleUpdateQuantity = async (productId, quantity) => {
     try {
-      const response = await fetch("https://lpu-cart-mern.vercel.app/api/cart/update", {
+      const response = await fetch("https://cart-1-xi.vercel.app/api/cart/update", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -161,7 +161,7 @@ const Cart = () => {
 
   const handleRemoveProduct = async (productId) => {
     try {
-      const response = await fetch("https://lpu-cart-mern.vercel.app/api/cart/remove", {
+      const response = await fetch("https://cart-1-xi.vercel.app/api/cart/remove", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -180,7 +180,7 @@ const Cart = () => {
 
   const handleCheckout = async () => {
     try {
-      const response = await fetch("https://lpu-cart-mern.vercel.app/api/cart/checkout", {
+      const response = await fetch("https://cart-1-xi.vercel.app/api/cart/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

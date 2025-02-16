@@ -10,7 +10,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://lpu-cart-mern.vercel.app/api/auth/signin', {
+      const response = await fetch('https://cart-1-xi.vercel.app/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

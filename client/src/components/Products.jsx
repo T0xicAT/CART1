@@ -15,7 +15,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://lpu-cart-mern.vercel.app/api/products');
+        const response = await fetch('https://cart-1-xi.vercel.app/api/products');
         const data = await response.json();
         console.log(data);
         setProducts(data);
@@ -29,7 +29,7 @@ const Products = () => {
   const handleAddToCart = async (productId) => {
     try {
       const quantity = quantities[productId] || 1;
-      const response = await fetch('https://lpu-cart-mern.vercel.app/api/cart/add', {
+      const response = await fetch('https://cart-1-xi.vercel.app/api/cart/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const Products = () => {
   const handleDone = async (productId) => {
     try {
       const quantity = quantities[productId] || 1;
-      const response = await fetch('https://lpu-cart-mern.vercel.app/api/cart/add', {
+      const response = await fetch('https://cart-1-xi.vercel.app/api/cart/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
