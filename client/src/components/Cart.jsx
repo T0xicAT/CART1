@@ -85,7 +85,7 @@
 //             <div key={item.product._id || index} className="bg-white p-4 rounded shadow-md">
 //               <img src={item.product.image} alt={item.product.name} className="w-full h-48 object-cover mb-4" />
 //               <h2 className="text-xl font-semibold">{item.product.name}</h2>
-//               <p className="text-gray-600">${item.product.price}</p>
+//               <p className="text-gray-600">${item.product.cost}</p>
 //               <p className="text-gray-600">Quantity: {item.quantity}</p>
 //               <button onClick={() => handleUpdateQuantity(item.product._id, item.quantity + 1)}>+</button>
 //               <button onClick={() => handleUpdateQuantity(item.product._id, item.quantity - 1)}>-</button>
@@ -231,7 +231,7 @@ const Cart = () => {
                 className="w-full h-48 object-cover mb-4 rounded-md"
               />
               <h2 className="text-xl font-semibold mb-2">{item.product?.name || "Unknown Product"}</h2>
-              <p className="text-gray-600 mb-2">${item.product?.price?.toFixed(2) || "0.00"}</p>
+              <p className="text-gray-600 mb-2">${item.product?.cost?.toFixed(2) || "0.00"}</p>
               <div className="flex items-center justify-between mb-4">
                 <p className="text-gray-600">Quantity: {item.quantity || 0}</p>
                 <div className="flex items-center space-x-2">
@@ -264,7 +264,7 @@ const Cart = () => {
         <div className="mt-8 text-center">
           <p className="text-2xl font-bold mb-4">
             Total: $
-            {cartItems.reduce((total, item) => total + (item.product?.price || 0) * (item.quantity || 0), 0).toFixed(2)}
+            {cartItems.reduce((total, item) => total + (item.product?.cost || 0) * (item.quantity || 0), 0).toFixed(2)}
           </p>
           <button
             onClick={handleCheckout}
