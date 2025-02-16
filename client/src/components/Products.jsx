@@ -11,7 +11,7 @@
     useEffect(() => {
       const fetchProducts = async () => {
         try {
-          const response = await fetch('http://localhost:8082/api/products');
+          const response = await fetch('https://lpu-cart-mern.vercel.app/api/products');
           const data = await response.json();
           console.log(data);
           setProducts(data);
@@ -24,7 +24,7 @@
 
     const handleAddToCart = async (productId) => {
       try {
-        const response = await fetch('http://localhost:8082/api/cart/add', {
+        const response = await fetch('https://lpu-cart-mern.vercel.app/api/cart/add', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
